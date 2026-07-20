@@ -1,20 +1,18 @@
 <div align="center">
 
-# 🏥 Sentinel – AI-Powered Health Monitoring System
+# 🏥 Sentinel
+## AI-Powered Medical Health Monitoring System
 
-### ❤️ Always Watching Over Your Health
+![Status](https://img.shields.io/badge/Status-Production_Ready-00E676?style=for-the-badge)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb)
+![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazonaws)
 
-An AI-powered healthcare monitoring platform that combines ECG analysis, stress and sleep monitoring, cloud computing, and real-time health analytics to provide continuous patient monitoring and early risk detection.
-
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwind-css)
-![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazonaws)
+**❤️ Always Watching Over Your Health**
 
 </div>
-
----
 
 # 📖 Overview
 
