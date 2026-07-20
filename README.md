@@ -45,7 +45,7 @@ It demonstrates the integration of Artificial Intelligence, Cloud Computing, and
 
 Displays the live healthcare dashboard featuring ECG monitoring, heart rate, stress level, sleep score, and emergency access.
 
-![Home](1.png)
+![Home](imgs/home.png)
 
 ---
 
@@ -53,15 +53,7 @@ Displays the live healthcare dashboard featuring ECG monitoring, heart rate, str
 
 Provides AI-powered healthcare services including ECG monitoring, risk prediction, and emergency alert management.
 
-![Services](imgs/services.png)
-
----
-
-## ❤️ Real-Time ECG Analysis
-
-Visualizes ECG waveforms and continuously detects abnormal heart rhythms.
-
-![ECG Analysis](imgs/ecg-analysis.png)
+![Services](imgs/monitoring.png)
 
 ---
 
@@ -69,7 +61,7 @@ Visualizes ECG waveforms and continuously detects abnormal heart rhythms.
 
 Tracks stress levels using physiological metrics and AI-driven analysis.
 
-![Stress Dashboard](imgs/stress-dashboard.png)
+![Stress Dashboard](imgs/Detection.png)
 
 ---
 
@@ -77,7 +69,7 @@ Tracks stress levels using physiological metrics and AI-driven analysis.
 
 Allows patients to instantly notify healthcare providers during medical emergencies.
 
-![Contact](imgs/contact.png)
+![Contact](imgs/Emergency.png)
 
 ---
 
