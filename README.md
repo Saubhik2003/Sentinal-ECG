@@ -8,7 +8,7 @@ Monitor ECG signals, stress levels, and sleep patterns in real time using AI-dri
 
 </div>
 
---
+---
 
 # 📖 Overview
 
