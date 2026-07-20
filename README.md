@@ -45,7 +45,7 @@ It demonstrates the integration of Artificial Intelligence, Cloud Computing, and
 
 Displays the live healthcare dashboard featuring ECG monitoring, heart rate, stress level, sleep score, and emergency access.
 
-![Home](imgs/home.png)
+![Home](https://github.com/Saubhik2003/Sentinal-ECG/blob/9e6a9854a01b7810b46644c16232fe3a3726fe6e/home.png)
 
 ---
 
@@ -53,7 +53,7 @@ Displays the live healthcare dashboard featuring ECG monitoring, heart rate, str
 
 Provides AI-powered healthcare services including ECG monitoring, risk prediction, and emergency alert management.
 
-![Services](imgs/monitoring.png)
+![Services](https://github.com/Saubhik2003/Sentinal-ECG/blob/9e6a9854a01b7810b46644c16232fe3a3726fe6e/monitoring.png)
 
 ---
 
@@ -61,7 +61,7 @@ Provides AI-powered healthcare services including ECG monitoring, risk predictio
 
 Tracks stress levels using physiological metrics and AI-driven analysis.
 
-![Stress Dashboard](imgs/Detection.png)
+![Stress Dashboard](https://github.com/Saubhik2003/Sentinal-ECG/blob/9e6a9854a01b7810b46644c16232fe3a3726fe6e/Detection.png)
 
 ---
 
@@ -69,7 +69,7 @@ Tracks stress levels using physiological metrics and AI-driven analysis.
 
 Allows patients to instantly notify healthcare providers during medical emergencies.
 
-![Contact](imgs/Emergency.png)
+![Contact](https://github.com/Saubhik2003/Sentinal-ECG/blob/9e6a9854a01b7810b46644c16232fe3a3726fe6e/Emergency.png)
 
 ---
 
