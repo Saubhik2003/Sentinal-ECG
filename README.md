@@ -45,7 +45,7 @@ It demonstrates the integration of Artificial Intelligence, Cloud Computing, and
 
 Displays the live healthcare dashboard featuring ECG monitoring, heart rate, stress level, sleep score, and emergency access.
 
-![Home](imgs/home.png)
+![Home](1.png)
 
 ---
 
