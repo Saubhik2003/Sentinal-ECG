@@ -1,10 +1,16 @@
-# ❤️ Sentinal ECG
-
 <div align="center">
 
-# AI-Powered Cloud-Based Patient Monitoring System
+# 🏥 Sentinel – AI-Powered Health Monitoring System
 
-Monitor ECG signals, stress levels, and sleep patterns in real time using AI-driven analytics, cloud technology, and an intuitive healthcare dashboard.
+### ❤️ Always Watching Over Your Health
+
+An AI-powered healthcare monitoring platform that combines ECG analysis, stress and sleep monitoring, cloud computing, and real-time health analytics to provide continuous patient monitoring and early risk detection.
+
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwind-css)
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazonaws)
 
 </div>
 
@@ -12,26 +18,26 @@ Monitor ECG signals, stress levels, and sleep patterns in real time using AI-dri
 
 # 📖 Overview
 
-Sentinal ECG is a modern healthcare monitoring platform that combines Artificial Intelligence, Cloud Computing, and real-time ECG visualization to provide continuous patient monitoring.
+Sentinel is a cloud-based healthcare monitoring platform designed to assist healthcare professionals and patients through AI-powered health analysis.
 
-The platform enables healthcare providers to track ECG signals, monitor stress and sleep patterns, detect abnormalities, and receive instant alerts through an interactive dashboard.
+The application continuously monitors ECG signals, heart rate, stress levels, and sleep patterns while providing predictive health insights, emergency alerts, and an intuitive medical dashboard.
 
-Designed with scalability, responsiveness, and usability in mind, Sentinal ECG demonstrates how AI can improve preventive healthcare and remote patient monitoring.
+It demonstrates the integration of Artificial Intelligence, Cloud Computing, and Modern Web Technologies for next-generation remote healthcare solutions.
 
 ---
 
-# ✨ Features
+# ✨ Key Features
 
 - ❤️ Real-Time ECG Monitoring
 - 📈 Live ECG Waveform Visualization
-- 🧠 AI-Based Risk Prediction
-- 😴 Stress Level Monitoring
-- 💓 Heart Rate Analysis
+- 🤖 AI-Based Health Risk Prediction
+- 😴 Sleep Quality Analysis
+- 🧠 Stress Level Monitoring
 - 🚨 Emergency SOS System
-- 📊 Interactive Healthcare Dashboard
-- ☁️ Cloud-Based Monitoring
 - 🔔 Automated Health Alerts
-- 📱 Fully Responsive Design
+- 📊 Interactive Medical Dashboard
+- ☁️ Cloud-Based Architecture
+- 📱 Responsive User Interface
 
 ---
 
@@ -39,57 +45,82 @@ Designed with scalability, responsiveness, and usability in mind, Sentinal ECG d
 
 ## 🏠 Home Page
 
-Displays a live healthcare dashboard with ECG monitoring, heart rate, stress level, sleep score, and emergency access.
+Displays the live healthcare dashboard featuring ECG monitoring, heart rate, stress level, sleep score, and emergency access.
 
-
-
-```text
-images/home.png
-```
+![Home](imgs/home.png)
 
 ---
 
 ## 🩺 Monitoring Services
 
-Provides continuous health monitoring, AI-based medical risk prediction, and emergency alert services.
+Provides AI-powered healthcare services including ECG monitoring, risk prediction, and emergency alert management.
 
-```text
-"C:\Users\HP\Desktop\Sentinal-ECG\1st.png"
-```
+![Services](imgs/services.png)
 
 ---
 
 ## ❤️ Real-Time ECG Analysis
 
-Shows live ECG waveform visualization with rhythm detection and waveform analysis.
+Visualizes ECG waveforms and continuously detects abnormal heart rhythms.
 
-```text
-images/ecg-analysis.png
-```
+![ECG Analysis](imgs/ecg-analysis.png)
 
 ---
 
 ## 🧠 Stress Monitoring Dashboard
 
-Tracks stress levels using heart rate variability and AI-powered analytics.
+Tracks stress levels using physiological metrics and AI-driven analysis.
 
-```text
-images/stress-dashboard.png
-```
+![Stress Dashboard](imgs/stress-dashboard.png)
 
 ---
 
-## 🚨 Emergency Contact
+## 🚨 Emergency Contact & SOS
 
-Allows users to instantly notify emergency contacts and healthcare professionals.
+Allows patients to instantly notify healthcare providers during medical emergencies.
 
-```text
-images/contact.png
-```
+![Contact](imgs/contact.png)
 
 ---
 
-# 🛠 Technology Stack
+# 🚀 Core Functionalities
+
+## ❤️ ECG Monitoring
+
+- Live ECG waveform visualization
+- Heart rate monitoring
+- Rhythm detection
+- ECG anomaly prediction
+
+## 🧠 AI Health Prediction
+
+- Risk score generation
+- Pattern recognition
+- Early warning detection
+- Personalized health insights
+
+## 😴 Sleep Analysis
+
+- Sleep quality monitoring
+- Sleep score calculation
+- Sleep trend analysis
+
+## 😰 Stress Analysis
+
+- Heart Rate Variability (HRV)
+- Stress level estimation
+- Daily trend monitoring
+
+## 🚨 Emergency Response
+
+- One-click SOS
+- Automated alerts
+- Doctor/Nurse notification
+- Emergency escalation workflow
+
+---
+
+# 🛠 Tech Stack
 
 ## Frontend
 
@@ -98,102 +129,158 @@ images/contact.png
 - Vite
 - Tailwind CSS
 - shadcn/ui
+- React Router
 
 ## Backend
 
-- REST APIs
-- Node.js
+- Python
+- Flask REST API
 
 ## Cloud
 
-- AWS
+- AWS Cloud Services
 
-## AI / Healthcare
+## Database
 
-- ECG Signal Processing
+- MongoDB
+
+## AI / ML
+
 - MIT-BIH Arrhythmia Dataset
-- Machine Learning
+- TensorFlow
+- Scikit-learn
+- ECG Signal Processing
 
 ## Tools
 
 - Git
 - GitHub
+- Docker
 - ESLint
-- Vitest
+- Postman
 
 ---
 
 # 📂 Project Structure
 
 ```
-Sentinal-ECG
+Sentinel-ECG
 │
-├── public
-├── src
-│   ├── assets
-│   ├── components
-│   ├── hooks
-│   ├── pages
-│   ├── lib
+├── imgs/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   ├── pages/
 │   └── App.tsx
 │
+├── backend_api.py
 ├── package.json
-├── vite.config.ts
-├── tailwind.config.ts
-└── README.md
+├── README.md
+└── ...
 ```
 
 ---
 
-# 🎯 Key Highlights
+# ⚙️ Installation
 
-- Developed a cloud-based patient monitoring platform.
-- Built AI-powered ECG visualization and analysis modules.
-- Implemented stress and sleep monitoring dashboards.
-- Designed responsive healthcare dashboards using React and Tailwind CSS.
-- Created emergency SOS workflow for critical health conditions.
-- Built scalable architecture ready for cloud deployment.
+Clone the repository
+
+```bash
+git clone https://github.com/Saubhik2003/Sentinal-ECG.git
+```
+
+Navigate into the project
+
+```bash
+cd Sentinal-ECG
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the frontend
+
+```bash
+npm run dev
+```
+
+Run the backend
+
+```bash
+python backend_api.py
+```
 
 ---
 
-# 🔮 Future Improvements
+# 🎯 Highlights
 
-- Deep Learning Arrhythmia Classification
-- IoT Device Integration
-- AWS IoT Core
-- Secure User Authentication
-- Doctor & Patient Portal
-- Cloud Database
-- PDF Health Reports
-- Mobile Application
-- Historical Health Analytics
+- AI-powered ECG monitoring
+- Cloud-based healthcare dashboard
+- Real-time health analytics
+- Automated emergency notification system
+- Responsive medical dashboard
+- Modern React + TypeScript architecture
+- Scalable healthcare application
+
+---
+
+# 🔮 Future Enhancements
+
+- 📱 Mobile Application
+- 🤖 Deep Learning ECG Classification
+- ☁️ AWS IoT Integration
+- 👨‍⚕️ Doctor Dashboard
+- 📄 PDF Medical Reports
+- 🔐 Authentication & Authorization
+- 📊 Historical Health Analytics
+- 🩺 Wearable Device Integration
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create your feature branch.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request.
 
 ---
 
 # 👨‍💻 Author
 
-### Saubhik Mallick
+## Saubhik Mallick
 
-B.Tech – Computer Science & Engineering (Cloud Computing)
+🎓 B.Tech – Computer Science & Engineering (Cloud Computing)
 
-📧 Email:
-saubhikmallick@gmail.com
+📧 Email: **saubhikmallick@gmail.com**
 
-💻 GitHub:
-https://github.com/Saubhik2003
+💻 GitHub: **https://github.com/Saubhik2003**
+
+🔗 LinkedIn: **https://www.linkedin.com/in/your-linkedin-profile/**
 
 ---
 
-# ⭐ Show Your Support
+# ⭐ Support
 
-If you found this project helpful, please give it a ⭐ on GitHub.
+If you found this project useful, please consider giving it a ⭐ on GitHub.
 
-It motivates further development and helps others discover the project.
+Your support helps the project reach more developers and encourages future improvements.
 
 ---
 
 <div align="center">
 
-Made with ❤️ by **Saubhik Mallick**
+## ❤️ Made with Passion by Saubhik Mallick
+
+**Sentinel – Always Watching Over Your Health**
 
 </div>
