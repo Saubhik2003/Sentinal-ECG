@@ -255,7 +255,7 @@ Contributions are welcome.
 
 💻 GitHub: **https://github.com/Saubhik2003**
 
-🔗 LinkedIn: **https://www.linkedin.com/in/your-linkedin-profile/**
+🔗 LinkedIn: **https://www.linkedin.com/in/saubhik-mallick-938a2026a/**
 
 ---
 
