@@ -54,7 +54,7 @@ images/home.png
 Provides continuous health monitoring, AI-based medical risk prediction, and emergency alert services.
 
 ```text
-images/services.png
+"C:\Users\HP\Desktop\Sentinal-ECG\1st.png"
 ```
 
 ---
