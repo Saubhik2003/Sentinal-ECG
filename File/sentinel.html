@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel - AI-Powered Health Guardian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d9ff;
+            --primary-dark: #0096b3;
+            --danger: #ff3366;
+            --warning: #ffaa00;
+            --success: #00ff88;
+            --bg-dark: #0a0e1a;
+            --bg-card: #141824;
+            --bg-hover: #1f2330;
+            --text: #e8edf4;
+            --text-dim: #8b95a8;
+            --border: #2a3142;
+            --shadow: rgba(0, 217, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .logo::before {
+            content: '◆ ';
+            color: var(--danger);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 51, 102, 0); }
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-value.safe { color: var(--success); }
+        .metric-value.warning { color: var(--warning); }
+        .metric-value.danger { color: var(--danger); }
+
+        .metric-chart {
+            height: 100px;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        /* Health Risk Score */
+        .risk-score-container {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .risk-score-circle {
+            width: 250px;
+            height: 250px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .risk-score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .risk-label {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+        }
+
+        /* ECG Waveform */
+        .ecg-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .ecg-canvas {
+            width: 100%;
+            height: 200px;
+            background: #0a0e1a;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .data-table thead {
+            background: var(--bg-hover);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .status-badge.safe {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success);
+        }
+
+        .status-badge.warning {
+            background: rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+        }
+
+        .status-badge.critical {
+            background: rgba(255, 51, 102, 0.2);
+            color: var(--danger);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+
+        .chat-bubble {
+            max-width: 70%;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .chat-input-container {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Emergency Alert */
+        .emergency-alert {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--danger);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(255, 51, 102, 0.5);
+            z-index: 999;
+            animation: slideInRight 0.5s ease-out;
+            display: none;
+        }
+
+        .emergency-alert.active {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .text-danger { color: var(--danger); }
+        .text-success { color: var(--success); }
+        .mb-2 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 2rem; }
+
+        h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1rem; }
+            .nav-links { display: none; }
+            .card-grid { grid-template-columns: 1fr; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Team Member Card */
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .team-member h4 {
+            font-family: 'Libre Baskerville', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Role Selector */
+        .role-selector {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .role-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .role-card.selected {
+            border-color: var(--primary);
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .role-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Consent Toggle */
+        .consent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--bg-hover);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--success);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Sentinel</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('services')">Services</a></li>
+                <li><a href="#" onclick="showPage('health')">Health Prediction</a></li>
+                <li><a href="#" onclick="showPage('team')">Our Team</a></li>
+                <li><a href="#" onclick="showPage('emergency')">Emergency</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-outline" onclick="showPage('login')">Login</button>
+                <button class="btn btn-primary" onclick="showPage('register')">Register</button>
+            </div>
+            <div class="auth-buttons" id="userMenu" style="display: none;">
+                <button class="btn btn-outline" onclick="showPage('dashboard')">Dashboard</button>
+                <button class="btn btn-outline" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Emergency Alert -->
+    <div class="emergency-alert" id="emergencyAlert">
+        <h3>🚨 CRITICAL ALERT</h3>
+        <p>Emergency response initiated. Medical team notified.</p>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="home">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Sentinel</h1>
+                <p>Always Watching Over Your Health</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showPage('register')">Get Started</button>
+                    <button class="btn btn-danger" onclick="triggerEmergency()">🚨 Emergency SOS</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <h2 class="text-center mb-2">AI-Powered Health Monitoring</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Real-Time Monitoring</h3>
+                    <p>Continuous tracking of vital signs including ECG, stress levels, and sleep patterns with instant anomaly detection.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>AI Risk Prediction</h3>
+                    <p>Advanced machine learning models analyze your health data to predict potential risks before they become critical.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚑</div>
+                    <h3>Emergency Response</h3>
+                    <p>Automatic alerts to medical professionals and emergency services when critical thresholds are detected.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <h3>Medical Reports</h3>
+                    <p>Comprehensive PDF reports with detailed analytics, charts, and professional medical documentation.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Health Assistant</h3>
+                    <p>24/7 AI chatbot for health queries, report explanations, and personalized lifestyle recommendations.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Data Privacy</h3>
+                    <p>End-to-end encryption with patient-controlled consent management and GDPR-compliant data handling.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div class="page" id="about">
+        <div class="container">
+            <h2 class="mb-2">About Sentinel</h2>
+            <div class="card">
+                <h3>Our Mission</h3>
+                <p>Sentinel was created to solve one of healthcare's most critical challenges: delayed diagnosis and emergency response. Every year, thousands of lives are lost due to late detection of medical emergencies. Our AI-powered platform acts as a digital health guardian, providing 24/7 monitoring and instant alerts to medical professionals.</p>
+            </div>
+
+            <div class="card mt-2">
+                <h3>The Problem We Solve</h3>
+                <p>Traditional healthcare systems are reactive - patients visit doctors after symptoms appear. By then, conditions may have already progressed. Sentinel takes a proactive approach, using artificial intelligence to detect subtle patterns in health data that humans might miss, enabling early intervention and potentially life-saving alerts.</p>
+            </div>
+
+            <div class="card mt-2">
+                <h3>AI-Driven Healthcare</h3>
+                <p>Our platform leverages state-of-the-art machine learning models trained on extensive medical datasets. These models analyze ECG patterns, stress indicators, and sleep disorders to generate a unified health risk score. When this score crosses critical thresholds, our system automatically initiates emergency protocols, notifying nurses, doctors, and emergency services.</p>
+            </div>
+
+            <div class="card mt-2">
+                <h3>Security & Data Protection</h3>
+                <p>We take data privacy seriously. All patient data is encrypted end-to-end using industry-standard protocols. Patients maintain complete control over their data through our consent management system. Medical professionals can only access patient information with explicit permission. Our infrastructure is GDPR-compliant and follows HIPAA guidelines for medical data protection.</p>
+            </div>
+
+            <div class="card mt-2">
+                <h3>Technology Stack</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>✓ AI/ML: TensorFlow & Scikit-learn for predictive analytics</li>
+                    <li>✓ Backend: Python REST APIs with JWT authentication</li>
+                    <li>✓ Database: MongoDB with encrypted collections</li>
+                    <li>✓ Security: Role-based access control (RBAC)</li>
+                    <li>✓ Frontend: Modern responsive web interface</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICES PAGE -->
+    <div class="page" id="services">
+        <div class="container">
+            <h2 class="mb-2">Our Services</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <h3>ECG Monitoring</h3>
+                    <p><strong>Continuous cardiac surveillance</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Real-time ECG waveform visualization</li>
+                        <li>• Automatic arrhythmia detection</li>
+                        <li>• Heart rate variability analysis</li>
+                        <li>• Instant emergency alerts for abnormalities</li>
+                        <li>• Historical trend analysis</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">😰</div>
+                    <h3>Stress Rate Analysis</h3>
+                    <p><strong>Mental health monitoring</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Continuous stress level tracking</li>
+                        <li>• Daily and weekly analytics</li>
+                        <li>• Pattern recognition for triggers</li>
+                        <li>• Personalized relaxation recommendations</li>
+                        <li>• Integration with wearable devices</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">😴</div>
+                    <h3>Sleep Disorder Detection</h3>
+                    <p><strong>Sleep quality optimization</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Sleep quality index calculation</li>
+                        <li>• Apnea and insomnia detection</li>
+                        <li>• REM cycle analysis</li>
+                        <li>• Sleep hygiene recommendations</li>
+                        <li>• Long-term pattern tracking</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>AI Health Risk Prediction</h3>
+                    <p><strong>Predictive analytics</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Unified health risk score (0-100)</li>
+                        <li>• Multi-factor risk assessment</li>
+                        <li>• Predictive modeling for diseases</li>
+                        <li>• Early warning system</li>
+                        <li>• Personalized health insights</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚨</div>
+                    <h3>Emergency Alert System</h3>
+                    <p><strong>Automated emergency response</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Instant notification to medical team</li>
+                        <li>• Multi-tier escalation protocol</li>
+                        <li>• GPS location sharing</li>
+                        <li>• Ambulance dispatch integration</li>
+                        <li>• Emergency contact alerts</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <h3>Medical Report Generation</h3>
+                    <p><strong>Professional documentation</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-dim);">
+                        <li>• Automated PDF report creation</li>
+                        <li>• Comprehensive health analytics</li>
+                        <li>• ECG charts and visualizations</li>
+                        <li>• Doctor remarks and annotations</li>
+                        <li>• Secure cloud storage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEALTH PREDICTION PAGE -->
+    <div class="page" id="health">
+        <div class="container">
+            <h2 class="mb-2">Health Prediction Dashboard</h2>
+            
+            <!-- AI Health Risk Score -->
+            <div class="risk-score-container">
+                <h3>AI Health Risk Score</h3>
+                <div class="risk-score-circle">
+                    <canvas id="riskScoreCanvas" width="250" height="250"></canvas>
+                    <div class="risk-score-value" id="riskScoreValue">--</div>
+                </div>
+                <div class="risk-label" id="riskLabel">Analyzing...</div>
+                <p style="color: var(--text-dim); margin-top: 1rem;">Based on ECG, stress, and sleep analysis</p>
+            </div>
+
+            <!-- Metrics Dashboard -->
+            <div class="dashboard-grid">
+                <!-- ECG Module -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">❤️ ECG Analysis</span>
+                    </div>
+                    <div class="metric-value safe" id="heartRate">72</div>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">BPM</p>
+                    <div class="ecg-container">
+                        <canvas id="ecgCanvas" class="ecg-canvas"></canvas>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span class="status-badge safe" id="ecgStatus">Normal Rhythm</span>
+                    </div>
+                </div>
+
+                <!-- Stress Module -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">😰 Stress Level</span>
+                    </div>
+                    <div class="metric-value warning" id="stressLevel">45</div>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">Stress Index</p>
+                    <div class="metric-chart">
+                        <canvas id="stressChart"></canvas>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span class="status-badge warning" id="stressStatus">Moderate</span>
+                    </div>
+                </div>
+
+                <!-- Sleep Module -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">😴 Sleep Quality</span>
+                    </div>
+                    <div class="metric-value safe" id="sleepQuality">78</div>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">Quality Index</p>
+                    <div class="metric-chart">
+                        <canvas id="sleepChart"></canvas>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span class="status-badge safe" id="sleepStatus">Good Quality</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <button class="btn btn-primary" onclick="generateReport()">📄 Generate PDF Report</button>
+                <button class="btn btn-outline" onclick="showPage('chatbot')">💬 Ask Health Assistant</button>
+                <button class="btn btn-danger" onclick="triggerEmergency()">🚨 Emergency Alert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page" id="dashboard">
+        <div class="container">
+            <h2 class="mb-2">Patient Dashboard</h2>
+            <div id="patientDashboard" style="display: none;">
+                <div class="card">
+                    <h3>Welcome, <span id="patientName">Patient</span></h3>
+                    <p>Your health is being monitored 24/7 by Sentinel AI</p>
+                </div>
+
+                <h3 class="mt-2">Recent Health Reports</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Risk Score</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTable">
+                        <tr>
+                            <td>2026-01-30</td>
+                            <td>28</td>
+                            <td><span class="status-badge safe">Safe</span></td>
+                            <td><button class="btn btn-outline" style="padding: 0.4rem 1rem;">View Report</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="mt-2">Data Consent Management</h3>
+                <div class="consent-item">
+                    <div>
+                        <strong>Dr. Sarah Johnson</strong>
+                        <p style="color: var(--text-dim); font-size: 0.85rem;">Cardiologist</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleConsent(this)"></div>
+                </div>
+                <div class="consent-item">
+                    <div>
+                        <strong>Dr. Michael Chen</strong>
+                        <p style="color: var(--text-dim); font-size: 0.85rem;">General Physician</p>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleConsent(this)"></div>
+                </div>
+            </div>
+
+            <div id="doctorDashboard" style="display: none;">
+                <div class="card">
+                    <h3>Doctor Dashboard</h3>
+                    <p>Managing <span id="patientCount">24</span> patients</p>
+                </div>
+
+                <h3 class="mt-2">Active Patients</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Risk Score</th>
+                            <th>Last Updated</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>28</td>
+                            <td>2 mins ago</td>
+                            <td><span class="status-badge safe">Safe</span></td>
+                            <td><button class="btn btn-outline" style="padding: 0.4rem 1rem;">View Details</button></td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>65</td>
+                            <td>5 mins ago</td>
+                            <td><span class="status-badge critical">Critical</span></td>
+                            <td><button class="btn btn-danger" style="padding: 0.4rem 1rem;">Emergency</button></td>
+                        </tr>
+                        <tr>
+                            <td>Robert Wilson</td>
+                            <td>42</td>
+                            <td>10 mins ago</td>
+                            <td><span class="status-badge warning">Moderate</span></td>
+                            <td><button class="btn btn-outline" style="padding: 0.4rem 1rem;">View Details</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="nurseDashboard" style="display: none;">
+                <div class="card">
+                    <h3>Nurse Dashboard</h3>
+                    <p>Monitoring ward patients</p>
+                </div>
+
+                <h3 class="mt-2">Priority Alerts</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Alert Type</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>Critical ECG</td>
+                            <td>2 mins ago</td>
+                            <td><button class="btn btn-danger" style="padding: 0.4rem 1rem;">Respond</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHATBOT PAGE -->
+    <div class="page" id="chatbot">
+        <div class="container">
+            <h2 class="mb-2">AI Health Assistant</h2>
+            <div class="card" style="background: rgba(255, 170, 0, 0.1); border-color: var(--warning);">
+                <p>⚠️ <strong>Disclaimer:</strong> This chatbot provides general health information and is not a substitute for professional medical diagnosis or treatment. Always consult with a qualified healthcare provider.</p>
+            </div>
+
+            <div class="chat-container mt-2">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message">
+                        <div class="chat-bubble">
+                            <strong>Sentinel AI</strong>
+                            <p>Hello! I'm your AI health assistant. I can help you with:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>General health queries</li>
+                                <li>Explaining your medical reports</li>
+                                <li>Lifestyle and wellness suggestions</li>
+                                <li>Understanding your health metrics</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;">How can I assist you today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your health question..." onkeypress="handleChatKeypress(event)">
+                    <button class="btn btn-primary" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM PAGE -->
+    <div class="page" id="team">
+        <div class="container">
+            <h2 class="text-center mb-2">Our Medical Team</h2>
+            
+            <h3 class="mt-2">Doctors</h3>
+            <div class="card-grid">
+                <div class="card team-member">
+                    <div class="team-member-avatar">👨‍⚕️</div>
+                    <h4>Dr. Sarah Johnson</h4>
+                    <p class="text-primary">Chief Cardiologist</p>
+                    <p>15+ years experience in cardiac care and emergency medicine. Specialized in AI-assisted diagnostics.</p>
+                </div>
+                <div class="card team-member">
+                    <div class="team-member-avatar">👨‍⚕️</div>
+                    <h4>Dr. Michael Chen</h4>
+                    <p class="text-primary">General Physician</p>
+                    <p>Expert in preventive medicine and chronic disease management. Board certified in internal medicine.</p>
+                </div>
+                <div class="card team-member">
+                    <div class="team-member-avatar">👩‍⚕️</div>
+                    <h4>Dr. Emily Rodriguez</h4>
+                    <p class="text-primary">Sleep Specialist</p>
+                    <p>Leading researcher in sleep disorders and circadian rhythm medicine with 12 years experience.</p>
+                </div>
+            </div>
+
+            <h3 class="mt-2">Nurses</h3>
+            <div class="card-grid">
+                <div class="card team-member">
+                    <div class="team-member-avatar">👩‍⚕️</div>
+                    <h4>Nurse Jennifer Williams</h4>
+                    <p class="text-primary">Head Nurse - Emergency Response</p>
+                    <p>Critical care specialist with expertise in rapid response protocols and patient monitoring.</p>
+                </div>
+                <div class="card team-member">
+                    <div class="team-member-avatar">👨‍⚕️</div>
+                    <h4>Nurse David Martinez</h4>
+                    <p class="text-primary">ICU Nurse</p>
+                    <p>10+ years in intensive care with specialization in cardiac monitoring and emergency procedures.</p>
+                </div>
+            </div>
+
+            <h3 class="mt-2">Frequently Asked Questions</h3>
+            <div class="card">
+                <h4 style="color: var(--primary);">How does Sentinel detect emergencies?</h4>
+                <p>Sentinel uses advanced AI algorithms to continuously analyze your vital signs. When anomalies are detected or your health risk score enters the critical zone (61-100), the system automatically alerts our medical team and can dispatch emergency services if needed.</p>
+            </div>
+            <div class="card">
+                <h4 style="color: var(--primary);">Is my health data secure?</h4>
+                <p>Yes. All data is encrypted end-to-end and stored in HIPAA-compliant servers. You control who can access your information through our consent management system. Medical professionals can only view your data with your explicit permission.</p>
+            </div>
+            <div class="card">
+                <h4 style="color: var(--primary);">How accurate is the AI prediction?</h4>
+                <p>Our AI models are trained on extensive medical datasets and have been validated against clinical standards. However, AI predictions should be considered as assistive tools for medical professionals, not replacements for human clinical judgment.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENCY PAGE -->
+    <div class="page" id="emergency">
+        <div class="container">
+            <h2 class="text-center mb-2 text-danger">Emergency Contact</h2>
+            
+            <div class="card" style="background: rgba(255, 51, 102, 0.1); border-color: var(--danger); text-align: center; padding: 3rem;">
+                <h3>Need Immediate Help?</h3>
+                <button class="btn btn-danger" style="font-size: 1.5rem; padding: 1.5rem 3rem; margin: 2rem 0;" onclick="triggerEmergency()">
+                    🚨 ACTIVATE EMERGENCY SOS
+                </button>
+                <p style="color: var(--text-dim);">This will immediately notify our medical team, your assigned doctor, and emergency services.</p>
+            </div>
+
+            <div class="card-grid mt-2">
+                <div class="card">
+                    <h3>📞 Emergency Hotline</h3>
+                    <p style="font-size: 2rem; color: var(--danger); font-family: 'JetBrains Mono', monospace;">911</p>
+                    <p>24/7 emergency response</p>
+                </div>
+                <div class="card">
+                    <h3>🏥 Hospital Contact</h3>
+                    <p style="font-size: 1.5rem; color: var(--primary); font-family: 'JetBrains Mono', monospace;">+1-555-SENTINEL</p>
+                    <p>Direct line to medical team</p>
+                </div>
+                <div class="card">
+                    <h3>📍 Location Services</h3>
+                    <p>GPS tracking enabled</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Share Location</button>
+                </div>
+            </div>
+
+            <h3 class="mt-2">Emergency Protocol</h3>
+            <div class="card">
+                <ol style="color: var(--text-dim); line-height: 2;">
+                    <li><strong style="color: var(--text);">Alert Initiation:</strong> System detects critical health threshold or manual SOS activation</li>
+                    <li><strong style="color: var(--text);">Nurse Notification:</strong> On-duty nurse receives immediate alert with patient vitals</li>
+                    <li><strong style="color: var(--text);">Doctor Escalation:</strong> Assigned doctor notified within 30 seconds</li>
+                    <li><strong style="color: var(--text);">Emergency Services:</strong> Ambulance dispatch with patient location and medical history</li>
+                    <li><strong style="color: var(--text);">Family Contact:</strong> Emergency contacts receive SMS/call notification</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div class="page" id="login">
+        <div class="container">
+            <div style="max-width: 500px; margin: 5rem auto;">
+                <h2 class="text-center mb-2">Login to Sentinel</h2>
+                
+                <div class="role-selector">
+                    <div class="role-card" onclick="selectRole('patient', this)">
+                        <div class="role-icon">🧑</div>
+                        <h4>Patient</h4>
+                    </div>
+                    <div class="role-card" onclick="selectRole('doctor', this)">
+                        <div class="role-icon">👨‍⚕️</div>
+                        <h4>Doctor</h4>
+                    </div>
+                    <div class="role-card" onclick="selectRole('nurse', this)">
+                        <div class="role-icon">👩‍⚕️</div>
+                        <h4>Nurse</h4>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-dim);">
+                        Don't have an account? <a href="#" onclick="showPage('register')" style="color: var(--primary);">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div class="page" id="register">
+        <div class="container">
+            <div style="max-width: 600px; margin: 5rem auto;">
+                <h2 class="text-center mb-2">Create Account</h2>
+                
+                <div class="card">
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="registerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="registerDOB" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="registerPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <select id="registerRole" required>
+                                <option value="patient">Patient</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="nurse">Nurse</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-dim);">
+                        Already have an account? <a href="#" onclick="showPage('login')" style="color: var(--primary);">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let selectedLoginRole = 'patient';
+        let healthData = {
+            heartRate: 72,
+            stressLevel: 45,
+            sleepQuality: 78,
+            riskScore: 28
+        };
+
+        // Initialize on load
+        window.onload = function() {
+            initializeHealthMonitoring();
+            checkAuthStatus();
+        };
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Authentication
+        function selectRole(role, element) {
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedLoginRole = role;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Simulate login (in production, this would be an API call)
+            currentUser = {
+                name: email.split('@')[0],
+                email: email,
+                role: selectedLoginRole
+            };
+
+            localStorage.setItem('sentinelUser', JSON.stringify(currentUser));
+            updateAuthUI();
+            showPage('dashboard');
+            loadDashboard();
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const role = document.getElementById('registerRole').value;
+
+            currentUser = { name, email, role };
+            localStorage.setItem('sentinelUser', JSON.stringify(currentUser));
+            updateAuthUI();
+            showPage('dashboard');
+            loadDashboard();
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('sentinelUser');
+            updateAuthUI();
+            showPage('home');
+        }
+
+        function checkAuthStatus() {
+            const stored = localStorage.getItem('sentinelUser');
+            if (stored) {
+                currentUser = JSON.parse(stored);
+                updateAuthUI();
+            }
+        }
+
+        function updateAuthUI() {
+            if (currentUser) {
+                document.getElementById('authButtons').style.display = 'none';
+                document.getElementById('userMenu').style.display = 'flex';
+            } else {
+                document.getElementById('authButtons').style.display = 'flex';
+                document.getElementById('userMenu').style.display = 'none';
+            }
+        }
+
+        function loadDashboard() {
+            if (!currentUser) return;
+
+            document.getElementById('patientDashboard').style.display = 'none';
+            document.getElementById('doctorDashboard').style.display = 'none';
+            document.getElementById('nurseDashboard').style.display = 'none';
+
+            if (currentUser.role === 'patient') {
+                document.getElementById('patientDashboard').style.display = 'block';
+                document.getElementById('patientName').textContent = currentUser.name;
+            } else if (currentUser.role === 'doctor') {
+                document.getElementById('doctorDashboard').style.display = 'block';
+            } else if (currentUser.role === 'nurse') {
+                document.getElementById('nurseDashboard').style.display = 'block';
+            }
+        }
+
+        // Health Monitoring
+        function initializeHealthMonitoring() {
+            updateHealthMetrics();
+            drawECG();
+            drawRiskScore();
+            drawStressChart();
+            drawSleepChart();
+
+            // Simulate real-time updates
+            setInterval(updateHealthMetrics, 3000);
+        }
+
+        function updateHealthMetrics() {
+            // Simulate real-time data (in production, this would come from sensors/API)
+            healthData.heartRate = 65 + Math.random() * 20;
+            healthData.stressLevel = 30 + Math.random() * 40;
+            healthData.sleepQuality = 60 + Math.random() * 30;
+            
+            // Calculate risk score
+            calculateRiskScore();
+
+            // Update UI
+            document.getElementById('heartRate').textContent = Math.round(healthData.heartRate);
+            document.getElementById('stressLevel').textContent = Math.round(healthData.stressLevel);
+            document.getElementById('sleepQuality').textContent = Math.round(healthData.sleepQuality);
+
+            // Update statuses
+            updateStatus('ecgStatus', healthData.heartRate);
+            updateStatus('stressStatus', healthData.stressLevel);
+            updateStatus('sleepStatus', healthData.sleepQuality);
+
+            // Redraw charts
+            drawECG();
+            drawRiskScore();
+        }
+
+        function calculateRiskScore() {
+            // AI-like calculation (simplified)
+            let score = 0;
+            
+            // ECG contribution (30%)
+            if (healthData.heartRate < 60 || healthData.heartRate > 100) score += 30;
+            else if (healthData.heartRate < 65 || healthData.heartRate > 90) score += 15;
+            
+            // Stress contribution (40%)
+            score += (healthData.stressLevel / 100) * 40;
+            
+            // Sleep contribution (30%)
+            score += ((100 - healthData.sleepQuality) / 100) * 30;
+
+            healthData.riskScore = Math.round(score);
+
+            // Check for emergency
+            if (healthData.riskScore > 60) {
+                triggerEmergency();
+            }
+
+            return healthData.riskScore;
+        }
+
+        function updateStatus(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (value < 40 || value > 80) {
+                element.className = 'status-badge safe';
+                element.textContent = elementId.includes('ecg') ? 'Normal Rhythm' : 
+                                     elementId.includes('stress') ? 'Low Stress' : 'Good Quality';
+            } else if (value >= 40 && value <= 60) {
+                element.className = 'status-badge warning';
+                element.textContent = 'Moderate';
+            } else {
+                element.className = 'status-badge critical';
+                element.textContent = 'Critical';
+            }
+        }
+
+        function drawECG() {
+            const canvas = document.getElementById('ecgCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.fillStyle = '#0a0e1a';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw grid
+            ctx.strokeStyle = '#2a3142';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < width; i += 20) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, height);
+                ctx.stroke();
+            }
+            for (let i = 0; i < height; i += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(width, i);
+                ctx.stroke();
+            }
+
+            // Draw ECG waveform
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            const time = Date.now() / 1000;
+            for (let x = 0; x < width; x++) {
+                const t = (x / width) * 4 + time;
+                const y = height / 2 + 
+                         Math.sin(t * 6) * 40 + 
+                         Math.sin(t * 12) * 20 +
+                         (Math.random() - 0.5) * 5;
+                
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        function drawRiskScore() {
+            const canvas = document.getElementById('riskScoreCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const centerX = 125;
+            const centerY = 125;
+            const radius = 100;
+
+            ctx.clearRect(0, 0, 250, 250);
+
+            // Background circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#2a3142';
+            ctx.lineWidth = 15;
+            ctx.stroke();
+
+            // Risk score arc
+            const endAngle = (healthData.riskScore / 100) * 2 * Math.PI - Math.PI / 2;
+            const color = healthData.riskScore < 30 ? '#00ff88' : 
+                         healthData.riskScore < 60 ? '#ffaa00' : '#ff3366';
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, endAngle);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 15;
+            ctx.stroke();
+
+            // Update value and label
+            document.getElementById('riskScoreValue').textContent = healthData.riskScore;
+            document.getElementById('riskScoreValue').style.color = color;
+            
+            const label = healthData.riskScore < 30 ? 'SAFE' :
+                         healthData.riskScore < 60 ? 'MODERATE RISK' : 'CRITICAL';
+            document.getElementById('riskLabel').textContent = label;
+            document.getElementById('riskLabel').style.color = color;
+        }
+
+        function drawStressChart() {
+            const canvas = document.getElementById('stressChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ffaa00';
+            const barHeight = (healthData.stressLevel / 100) * canvas.height;
+            ctx.fillRect(0, canvas.height - barHeight, canvas.width, barHeight);
+        }
+
+        function drawSleepChart() {
+            const canvas = document.getElementById('sleepChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            const barHeight = (healthData.sleepQuality / 100) * canvas.height;
+            ctx.fillRect(0, canvas.height - barHeight, canvas.width, barHeight);
+        }
+
+        // Emergency Alert
+        function triggerEmergency() {
+            const alert = document.getElementById('emergencyAlert');
+            alert.classList.add('active');
+
+            // Simulate emergency response
+            setTimeout(() => {
+                alert.innerHTML = '<h3>✅ Response Team En Route</h3><p>Dr. Sarah Johnson and Nurse Jennifer Williams notified. Ambulance dispatched.</p>';
+            }, 2000);
+
+            setTimeout(() => {
+                alert.classList.remove('active');
+            }, 8000);
+
+            // In production, this would trigger actual notifications via API
+            console.log('Emergency alert sent to medical team');
+        }
+
+        // Report Generation
+        function generateReport() {
+            alert('PDF Report is being generated with your current health metrics, ECG charts, and AI risk analysis. In production, this would create a downloadable PDF.');
+            // In production, call backend API to generate PDF
+        }
+
+        // Chatbot
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.innerHTML = `<div class="chat-bubble">${message}</div>`;
+            messagesContainer.appendChild(userMsg);
+
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-message';
+                aiMsg.innerHTML = `
+                    <div class="chat-bubble">
+                        <strong>Sentinel AI</strong>
+                        <p>${getAIResponse(message)}</p>
+                    </div>
+                `;
+                messagesContainer.appendChild(aiMsg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function getAIResponse(message) {
+            // Simple rule-based responses (in production, use actual AI/NLP)
+            const lower = message.toLowerCase();
+            
+            if (lower.includes('heart') || lower.includes('ecg')) {
+                return 'Your current heart rate is ' + Math.round(healthData.heartRate) + ' BPM, which is within normal range. Regular cardiovascular exercise can help maintain healthy heart function. Would you like specific recommendations?';
+            } else if (lower.includes('stress')) {
+                return 'Your stress level is at ' + Math.round(healthData.stressLevel) + '/100. Consider meditation, deep breathing exercises, or a short walk to help reduce stress. Chronic stress can impact your overall health.';
+            } else if (lower.includes('sleep')) {
+                return 'Your sleep quality index is ' + Math.round(healthData.sleepQuality) + '/100. For better sleep, maintain consistent sleep schedule, avoid screens before bed, and create a comfortable sleep environment.';
+            } else if (lower.includes('risk') || lower.includes('score')) {
+                return 'Your current AI health risk score is ' + healthData.riskScore + '/100. This is calculated based on your ECG patterns, stress levels, and sleep quality. Regular monitoring helps us detect potential issues early.';
+            } else {
+                return 'I can help you understand your health metrics, provide lifestyle recommendations, or explain your medical reports. What specific health concern would you like to discuss?';
+            }
+        }
+
+        // Consent Management
+        function toggleConsent(element) {
+            element.classList.toggle('active');
+        }
+
+        // Start ECG animation
+        setInterval(drawECG, 50);
+    </script>
+</body>
+</html>
